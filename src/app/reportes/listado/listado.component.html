@@ -1,0 +1,143 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <ng-container *ngIf='carga'>
+          <h3>Cargando información...</h3>
+          <mat-progress-bar mode="indeterminate"  [color]="color" ></mat-progress-bar>
+      </ng-container>                        
+      <div class="row" [style.display]="!carga?'':'none'">
+          <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">list_alt</i>
+                  </div>
+                  <h4 class="card-title">Reportes</h4>
+                </div>
+                  <div class="card-body">
+                      <div class="toolbar">
+                          <div class="row">
+                              <div class="col-md-10 ml-auto mr-auto text-center">
+                                <form class="example-form">
+                                    <mat-form-field class="example-full-width">
+                                      <input type="text" placeholder="Listado de reportes" aria-label="Number" matInput [(formControl)]="myControl" [matAutocomplete]="auto" >
+                                        <button mat-button *ngIf="myControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="borrar()">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                        <mat-option (onSelectionChange)="reporteSeleccionado($event,reporte.URL_MENU)" *ngFor="let reporte of filteredOptions | async" [value]="reporte.ABREVIACION">
+                                      <!-- <mat-option (onSelectionChange)="onEnter($event)"  (click)="onEnter()" *ngFor="let reporte of filteredOptions | async" [value]="reporte.ABREVIACION"> -->
+                                            {{ reporte.ABREVIACION }}
+                                          <!-- <small>
+                                              {{ reporte.TOOLTIP }}
+                                          </small> -->
+                                        </mat-option>
+                                      </mat-autocomplete>
+                                    </mat-form-field>
+                                  </form>
+                            </div>
+                           </div>
+                              
+                           <div class="col-md-12" *ngIf='parmas!=undefined && myControl.value!=""'>
+                               <div class="card">
+                                 <div class="card-header">
+                                   <h4 class="card-title">Parametros de reporte</h4>
+                                 </div>
+                                 <form id='prb' #reportesForm="ngForm">
+                                <div class="row">   
+                                 <div class="col-md-4" *ngFor="let param of parmas" [ngSwitch]="param.ID_TIPO_DATO">
+                                    <!-- <mat-form-field *ngSwitchCase="constantes.TIPO_DATO_LISTA" class="card" style="background-color: linen">
+                                        <mat-select [(placeholder)]="param.TEXTO" [(ngModel)]="param.VALOR"  required [name]="param.REPORTE_PARAMETRO">
+                                          <mat-option *ngFor="let dato of param.lista" [value]="dato.id">
+                                                    {{dato.text}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_LISTA" class="card" style="background-color: linen">
+                                        <ng-select [allowClear]="true"
+                                                    [items]="param.lista"
+                                                    (data)="refreshValue($event)"
+                                                    (selected)="selected(param,$event)"
+                                                    (removed)="removed($event)"
+                                                    (typed)="typed($event)"
+                                                    [(placeholder)]="param.TEXTO">
+                                        </ng-select>
+                                    </div>
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_TEXTO">
+                                        <mat-form-field>
+                                            <input matInput type="text" required [name]="param.TEXTO" [(placeholder)]="param.REPORTE_PARAMETRO" [(ngModel)]="param.VALOR" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_NUMERO">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput type="number" [(placeholder)]="param.TEXTO" [(ngModel)]="param.VALOR" required [name]="param.REPORTE_PARAMETRO" >
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_CHECKBOX">
+                                        <mat-checkbox [ngModel]="param.VALOR == 1 ? true : param.VALOR == 2 ? false : null" (ngModelChange)=" param.VALOR = $event ? 1 : 2">{{param.REPORTE_PARAMETRO}}</mat-checkbox>
+                                    </div>
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_FECHA">
+                                            <mat-form-field class="card" style="background-color: linen">
+                                                <input matInput  (click)="picker.open()" [matDatepicker]="picker" [(placeholder)]="param.TEXTO"  (ngModelChange)="param.VALOR=parseDate($event)"  [ngModel]="param.VALOR? null:null" required [name]="param.REPORTE_PARAMETRO" >
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker touchUi  #picker></mat-datepicker>      
+                                            </mat-form-field>
+                                    </div>
+                                    <div *ngSwitchCase="constantes.TIPO_DATO_DECIMAL">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput type="number" step="0.01"  [(placeholder)]="param.TEXTO" (ngModel)="param.VALOR" required [name]="param.REPORTE_PARAMETRO" >
+                                          </mat-form-field>
+                                    </div>
+                                    <div *ngSwitchCase="100">
+                                        <mat-form-field>
+                                            <input matInput type="number" step="0.01"  [(placeholder)]="param.TEXTO" (ngModel)="param.VALOR" required [name]="param.REPORTE_PARAMETRO" >
+                                          </mat-form-field>
+                                    </div>
+                                 </div>
+                                </div>
+                                 <button mat-fab class="btn btn-info" [matMenuTriggerFor]="menu" #triggerCart="matMenuTrigger" (mouseenter)="triggerCart.openMenu()">
+                                        <mat-icon>archive</mat-icon>
+                                 </button>
+                                 <!-- <mat-menu #menu="matMenu" overlapTrigger="false"> -->
+                                <mat-menu #menu="matMenu">
+                                    <span (mouseleave)="cerraMenu()">
+                                    <button mat-menu-item  class="btn btn-danger" (click)='grabarParametrosPDF()' [disabled]="!reportesForm.form.valid" style="width: 95%">
+                                            <img src="assets/img/pdf.png" style="width: 10%"/>
+                                            Descargar en formato PDF
+                                    </button>
+                                    <button mat-menu-item class="btn btn-success" (click)='grabarParametrosExcel()' [disabled]="!reportesForm.form.valid" style="width: 95%">
+                                            <img src="assets/img/excel.png"  style="width: 10%"/>
+                                            Descargar en formato Excel
+                                    </button>
+                                    <button mat-menu-item  class="btn btn-primary" (click)='grabarParametrosWord()' [disabled]="!reportesForm.form.valid" style="width: 95%" >
+                                            <img src="assets/img/word.jpg" style="width: 10%"/>
+                                            Descargar en formato Word
+                                    </button>
+                                    </span>
+                                 </mat-menu>
+                                 <div class="col-md-10 ml-auto text-right">
+                                        <button mat-stroked-button class="btn btn-danger btn-sm col-md-4" [disabled]="!reportesForm.form.valid"  style="width: 10%" (click)='grabarParametrosPDF()' >
+                                            <img src="assets/img/pdf.png"  style="width: 50%"/>
+                                        </button>
+                                        <button mat-stroked-button class="btn btn-success btn-sm col-md-4" [disabled]="!reportesForm.form.valid" style="width: 10%"  (click)='grabarParametrosExcel()'>
+                                                <img src="assets/img/excel.png" style="width: 50%"/>
+                                        </button>
+                                        <button mat-stroked-button class="btn btn-info btn-sm col-md-4" [disabled]="!reportesForm.form.valid" style="width: 10%;"  (click)='grabarParametrosWord()'>
+                                                <img src="assets/img/word.jpg" style="width: 50%"/>
+                                        </button>     
+                                 </div>
+                                 </form>
+                               </div>
+                             </div>
+                      </div>
+                   </div>
+                <!-- end content-->
+                </div>
+            <!--  end card  -->
+            </div>
+          <!-- end col-md-12 -->
+        </div>
+    <!-- end row -->
+  </div>
+</div>
+
+

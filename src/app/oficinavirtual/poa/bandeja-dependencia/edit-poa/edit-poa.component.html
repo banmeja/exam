@@ -1,0 +1,318 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header card-header-warning card-header-text">
+            <div class="card-text">
+              <h4 class="card-title">Datos Generales de la Programación</h4>
+            </div>
+          </div>
+          <div class="card-body ">
+            <form method="get" action="/" class="form-horizontal">
+              <div class="row">
+                <div class="col-sm-7">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Completo Solicitante" value={{dataAdicional.NombreEmpleado}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Puesto Solicitante" value={{dataAdicional.PuestoEmpleado}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Usuario" value={{dataAdicional.UsuarioEmpleado}} disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Dependencia Funcional del Solicitante" value={{dataAdicional.DependenciaSolicitante}}
+                      disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Personas" value={{vCantidadPersonas}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Año" [(ngModel)]="JsonPoa.ANIO" [ngModelOptions]="{standalone: true}" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+          <div class="card">
+            <div class="card-header card-header-info card-header-text">
+              <div class="card-text">
+                <h4 class="card-title">Búsqueda de Productos o Servicios</h4>
+              </div>
+            </div>
+            <!-- <h4 class="card-title pl-3" style="font-weight: 600">Búsqueda de Productos o Servicios</h4> -->
+            <div class="card-body ">
+                <div class="row" style="background-color:whitesmoke">
+                  <div class="col-sm-12">
+                    <mat-form-field>
+                      <input matInput [(ngModel)]="vBuscaPoducto" [ngModelOptions]="{standalone: true}" autofocus placeholder="Búsqueda de Producto" (keyup.enter)="onEnter($event,vBuscaPoducto, 'T')" (blur)="onEnter($event,vBuscaPoducto, 'T')">
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+<!--  -->
+                </div>
+
+<!-- inicio -->            
+<div class="row" style="background-color:whitesmoke"> <!-- style="background-color:whitesmoke"> -->
+  <!-- aca inicia -->
+
+  <div class="card-body">
+      <div class="table-responsive">
+         <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro del Resultado">
+         </mat-form-field>
+        <table mat-table [dataSource]="listadoBusqueda"  #hBSort="matSort"
+               matSort class="table table-striped table-no-bordered table-hover" 
+               cellspacing="0" padding="0" margin="0" width="100%" style="width:100%">
+
+          <ng-container matColumnDef="Codigo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Codigo </th>
+                <td mat-cell *matCellDef="let row"> {{row.CODIGO}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Descripción del Producto </th>
+                <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Renglon">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Renglón </th>
+                <td mat-cell *matCellDef="let row"  class="text-center"> {{row.COMGRUPO}}{{row.COMSUB_GRUPO}}{{row.COMRENGLON}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Medida">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Medida </th>
+                <td mat-cell *matCellDef="let row"  class="text-center"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Acciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-raised-button class="btn btn-just-icon btn-link btn-success mat-raised-button" 
+                            data-toggle="modal" data-target="#myModal" (click)="solicitaCantidad(row)">
+                        <i class="fa fa-plus-square-o"></i>
+                    </button>                                                         
+                </td>
+              </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['Codigo','Descripcion','Renglon','Medida','Acciones']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['Codigo','Descripcion','Renglon','Medida','Acciones'];">
+          </tr>
+        </table>
+        <mat-paginator #hBSort1="matPaginator"  [pageSizeOptions]="[5, 10, 25]" style="background-color:whitesmoke"></mat-paginator>
+      </div>
+    </div>
+  </div>
+  <!-- aca finaliza                   -->
+</div>
+<!-- fin -->                
+
+            </div>
+
+
+
+            <!-- INICIO DE DETALLE DEL PEDIDO-->
+            
+            <div class="card" [hidden]='listadoPedido.data.length==0'>
+                <div class="card-header card-header-success card-header-text">
+                    <div class="card-text">
+                      <h4 class="card-title">Detalle del registro ( {{listadoPedido.data.length}} )</h4>
+                    </div>
+                  </div>                               
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <mat-form-field>
+                            <input matInput (keyup)="filtroDetalle($event.target.value)" placeholder="Filtro">
+                         </mat-form-field>
+                        <table mat-table [dataSource]="listadoPedido"  #sBSort="matSort"  
+                               matSort class="table table-striped table-no-bordered table-hover" 
+                               cellspacing="0"
+                               width="100%" 
+                               style="width:100%">
+    
+                          <ng-container matColumnDef="codigo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Código </th>
+                                <td mat-cell *matCellDef="let row"> {{row.CODIGO}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="descripcion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Descripción Producto </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="renglon">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Renglón </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMGRUPO}}{{row.COMSUB_GRUPO}}{{row.COMRENGLON}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="medida">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> U. Medida </th>
+                                <td mat-cell *matCellDef="let row" class="text-center"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadI">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Cuatrimestre I </th>
+                                <td mat-cell *matCellDef="let row" class="text-center">{{row.CANTIDAD_I}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadII">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Cuatrimestre II </th>
+                                <td mat-cell *matCellDef="let row" class="text-center"> {{row.CANTIDAD_II}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadIII">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Cuatrimestre III </th>
+                                <td mat-cell *matCellDef="let row" class="text-center"> {{row.CANTIDAD_III}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Total </th>
+                                <td style="font-weight: bold;" mat-cell *matCellDef="let row"  class="text-center"> {{row.TOTAL}}</td>
+                              </ng-container>
+
+                              <ng-container matColumnDef="acciones">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                                  <td mat-cell *matCellDef="let row">
+                                    <button mat-raised-button class="btn btn-just-icon btn-link btn-danger mat-raised-button" (click)="quitaProducto(row)">
+                                      <i class="fa fa-minus-square-o"></i>
+                                    </button>
+                                  </td>
+                                </ng-container>                              
+
+                          <tr mat-header-row *matHeaderRowDef="['codigo','descripcion','medida','cantidadI','cantidadII','cantidadIII', 'total', 'acciones']"></tr>
+                          <tr mat-row *matRowDef="let row; columns: ['codigo','descripcion','medida','cantidadI','cantidadII','cantidadIII', 'total', 'acciones'];">
+                          </tr>
+                        </table>
+                        <mat-paginator #sBSort1="matPaginator" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+                    </div>
+                  </div>
+            </div>
+<!-- FIN -->
+
+<!-- INICIO DATATABLE.NET -->
+
+<!-- FIN DATATABLE.NET -->
+            
+        <div class="card" >
+        <!-- <div class="card" [hidden]='listadoPedido.data.length==0'> -->
+            <div class="card-header card-header-warning card-header-text" >
+              <div class="card-text">
+                <h4 class="card-title">Autorizador de la Solicitud</h4>
+              </div>
+            </div>
+            <!-- vContadorDetalle={{vContadorDetalle}} -->
+            <div class="card-body ">
+              <form method="get" action="/" class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-12" *ngIf="dataAutorizadores.length>0">
+                    <mat-form-field>
+                      <mat-select placeholder="Autorizador" name="dataAutorizador" [(ngModel)]="datapoa.AUTORIZADOR" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let dataAutorizador of dataAutorizadores" [value]="dataAutorizador.EMPLEADO">
+                          {{ dataAutorizador.NOMBRE_COMPLETO }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="align-items: center" *ngIf='this.idPoa==-1'>
+                    <button mat-raised-button class="btn btn-success btn-round" (click)="grabarNuevoPoa()">
+                        <i class="material-icons">view_module</i> Guardar
+                      </button>
+                </div>    
+                <div class="row" style="align-items: center" *ngIf='this.idPoa!=-1'>
+                  <button mat-raised-button class="btn btn-success btn-round" (click)="grabarEdicionPoa()">
+                    <i class="material-icons">view_module</i> Editar
+                  </button>
+                </div>    
+              </form>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+                <!-- Classic Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title card-header-warning">Ingreso de Cantidad</h4>
+<!--                           <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                          </button> -->
+                        </div>
+                        <div class="modal-body">
+                          <p>{{productoSeleccionado.COMDESCRIPCION_PRODUCTO}}
+                          </p>
+                          <div class="form-group bmd-form-group is-filled">
+                            <label class="label-control">Cantidad a Solicitar</label>
+                            <div class="row">
+                              <div class="col-sm-3"  *ngIf="productoSeleccionado.COMGRUPO==3">
+                                <mat-form-field >
+                                    <input matInput  type="number" placeholder="Anual" min="0" [(ngModel)]="productoSeleccionado.CANTIDAD_I" [ngModelOptions]="{standalone: true}" (change)="sumar()">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-sm-3" *ngIf="productoSeleccionado.COMGRUPO!=3">
+                                <mat-form-field >
+                                    <input id="cantidad" matInput type="number" min="0" #name placeholder="Cuatrimestre I" [(ngModel)]="productoSeleccionado.CANTIDAD_I" [ngModelOptions]="{standalone: true}" (change)="sumar()"> <!-- productoSeleccionado.CANTIDAD -->
+                                </mat-form-field>
+                              </div> 
+                              <div class="col-sm-3"  *ngIf="productoSeleccionado.COMGRUPO==2">
+                                  <mat-form-field >
+                                      <input matInput  type="number" min="0" placeholder="Cuatrimestre II" [(ngModel)]="productoSeleccionado.CANTIDAD_II" [ngModelOptions]="{standalone: true}" (change)="sumar()">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-3"  *ngIf="productoSeleccionado.COMGRUPO==2">
+                                    <mat-form-field >
+                                        <input matInput  type="number" min="0" placeholder="Cuatrimestre III" [(ngModel)]="productoSeleccionado.CANTIDAD_III" [ngModelOptions]="{standalone: true}" (change)="sumar()">
+                                    </mat-form-field>
+                                  </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field >
+                                        <input matInput  type="number" placeholder="Total" [(ngModel)]="productoSeleccionado.TOTAL" [ngModelOptions]="{standalone: true}" (change)="sumar()" disabled>
+                                    </mat-form-field>
+                                  </div>                                                                                                                                                
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <!-- <button mat-raised-button type="button" class="btn btn-link" (click)="agregaProducto()" data-dismiss="modal">Agregar</button> -->
+                          <button class="btn btn-just-icon btn-round btn-twitter mat-raised-button" mat-raised-button="" (click)="agregaProducto()" data-dismiss="modal">
+                              <span class="mat-button-wrapper">
+                                <i class="fa fa-plus-circle"></i>
+                              </span>
+                              <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                              <div class="mat-button-focus-overlay"></div>
+                          </button>                                          
+                          <!-- <button mat-raised-button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Cerrar</button> -->
+                          <button class="btn btn-just-icon btn-round btn-warning mat-raised-button" mat-raised-button="" data-dismiss="modal">
+                              <span class="mat-button-wrapper">
+                                <i class="fa fa-times-circle"></i>
+                              </span>
+                              <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                              <div class="mat-button-focus-overlay"></div>
+                            </button>                                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End Modal -->             

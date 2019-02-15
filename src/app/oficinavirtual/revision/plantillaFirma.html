@@ -1,0 +1,26 @@
+<div class="col-md-12 ml-auto mr-auto text-center" >
+        <div class="fileinput text-center">
+            <div class="fileinput-new thumbnail img-circle">
+                <img [(src)]='data.avatar' alt="...">
+            </div>
+            <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+    </div>
+    </div>
+    <div>
+        <h5>Usuario: {{data.USUARIO}}</h5>
+    </div>        
+     
+    <form id='prb' #reportesForm="ngForm">
+        <mat-form-field>
+            <textarea matInput placeholder="Justificación"  name='just' [(ngModel)]='data.justificacion' cdkFocusInitial></textarea>
+        </mat-form-field>
+        <mat-form-field>
+                <input matInput placeholder="Ingrese su PIN" name='pas' autocomplete="off" [type]="hide ? 'password' : 'text'" [(ngModel)]='data.pass'>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+    </form>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+    </div>

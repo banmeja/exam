@@ -1,0 +1,44 @@
+<!-- <div class="col-md-12 ml-auto mr-auto text-center" >
+        <div class="fileinput text-center">
+            <div class="fileinput-new thumbnail img-circle">
+                
+            </div>
+            <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+    </div>
+    </div>
+    <div>
+        <h5>Usuario: {{data.USUARIO}}</h5>
+    </div>        
+     
+    <form id='prb' #reportesForm="ngForm">
+        <mat-form-field>
+            <textarea matInput placeholder="Justificación"  name='just' [(ngModel)]='data.justificacion' cdkFocusInitial></textarea>
+        </mat-form-field>
+        <mat-form-field>
+                <input matInput placeholder="Ingrese su PIN" name='pas' autocomplete="off" [type]="hide ? 'password' : 'text'" [(ngModel)]='data.pass'>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+    </form>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+    </div> -->
+    <div>
+            <p>First focusable element within the modal window will receive focus upon opening.
+                    This could be configured to focus any other element by adding an <code>ngbAutofocus</code> attribute on it.</p>
+                    
+                    <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">ngbAutofocus</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-danger<span class="token punctuation">"</span></span>
+                          <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal.close(<span class="token punctuation">'</span>Ok click<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Ok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    
+                    <br />
+                    <button class="btn btn-outline-primary mr-2" (click)="open('focusFirst')">
+                      <div>Open confirm modal</div>
+                      <div class="text-dark" aria-hidden="true"><small>&times; button will be focused</small></div>
+                    </button>
+                    
+                    <button class="btn btn-outline-primary" (click)="open('autofocus')">
+                      <div>Open confirm modal with `ngbAutofocus`</div>
+                      <div class="text-dark" aria-hidden="true"><small>Ok button will be focused</small></div>
+                    </button>
+    </div>

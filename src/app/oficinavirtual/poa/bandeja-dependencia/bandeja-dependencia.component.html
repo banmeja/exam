@@ -1,0 +1,375 @@
+<div class="main-content">
+  <div class="container-fluid">                   
+            
+    <div class="row" >
+      <div class="col-md-12 ml-auto mr-auto">
+       
+ 
+          <div class="tab-content tab-space tab-subcategories">
+            <div class="tab-pane active" id="link7">
+              <!-- inicio -->
+              <div class="card">
+               
+                  <div class="col-md-10"> 
+                    <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                        <div _ngcontent-c4="" class="card-icon">
+                          <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                        </div>
+                        <h4 _ngcontent-c4="" class="card-title">Listado de Programaciones</h4>
+                     </div>             
+                  </div>                                        
+                  <div class="col-md-2" *ngIf='datapoaFiltrado.data.length==0'>
+                <!-- <div class="col-md-2"> -->
+                      <button 
+                        _ngcontent-c4="" 
+                        class="btn btn-warning mat-raised-button" 
+                        mat-raised-button="" 
+                        (click)='editar(-1)'
+                        tabindex="0">
+                          <span class="mat-button-wrapper">Agregar registros</span>
+                          <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                          <div class="mat-button-focus-overlay"></div>
+                        </button>     
+                  </div>
+                                 
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <div class="row">
+                      <div class="col-md-12">
+
+                      </div>                  
+                    </div>
+
+                    <table mat-table [dataSource]="datapoaFiltrado"  
+                           matSort class="table table-striped table-no-bordered table-hover" 
+                           cellspacing="1"
+                           width="100%" 
+                           style="width:100%">
+
+                        <ng-container matColumnDef="ANIO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año </th>
+                            <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="poa_REF">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número  </th>
+                            <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                            <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ESTADO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                            <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                            <td mat-cell *matCellDef="let row"> 
+                                <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em" (click)='verSinFirma(row.POAID)'>
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                                <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em" (click)='editar(row.POAID)'  *ngIf='row.ESTADOID==30'>
+                                    <i class="material-icons">edit</i>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                      <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                      </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="link8">
+              <div class="card">
+                  <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                      <div _ngcontent-c4="" class="card-icon">
+                        <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                      </div><h4 _ngcontent-c4="" class="card-title">Listado de Solicitudes Pendientes de Modificar</h4>
+                    </div>                                
+                  <div class="card-body">
+                      <div class="table-responsive">
+                           <table mat-table [dataSource]="datapoaFiltrado" 
+                           matSort class="table table-striped table-no-bordered table-hover" 
+                           cellspacing="1"
+                           width="100%" 
+                           style="width:100%">
+
+                        <ng-container matColumnDef="ANIO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año Solicitud</th>
+                            <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="poa_REF">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número de Solicitud </th>
+                            <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                            <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ESTADO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                            <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                            <td mat-cell *matCellDef="let row"> 
+                                <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em"  *ngIf="Codigoempleado!=row.SOLICITANTE">
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                                <button mat-raised-button type="button" class="btn btn-success {{row[5]}}" style="padding: 0.5em; margin: 0.5em" *ngIf="Codigoempleado==row.SOLICITANTE">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                      <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                      </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="link9">
+              <div class="card">
+                  <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                      <div _ngcontent-c4="" class="card-icon">
+                        <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                      </div><h4 _ngcontent-c4="" class="card-title">Listado Programaciones por Autorizar</h4>
+                    </div>                                
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                         </mat-form-field>
+                         <table mat-table [dataSource]="datapoaFiltrado" 
+                         matSort class="table table-striped table-no-bordered table-hover" 
+                         cellspacing="1"
+                         width="100%" 
+                         style="width:100%">
+
+                      <ng-container matColumnDef="ANIO">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año Solicitud</th>
+                          <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="poa_REF">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número de Solicitud </th>
+                          <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                          <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="ESTADO">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                          <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="Acciones">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                          <td mat-cell *matCellDef="let row"> 
+                              <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em" (click)='verFirma(row.POAID)'>
+                                  <i class="material-icons">visibility</i>
+                              </button>
+                               <button mat-raised-button type="button" class="btn btn-success {{row[5]}}" style="padding: 0.5em; margin: 0.5em">
+                                  <i class="material-icons">done_all</i>
+                              </button>
+                          </td>
+                      </ng-container>                      
+                      
+                    <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                    </tr>
+                  </table>
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="link10">
+                <div class="card">
+                    <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                        <div _ngcontent-c4="" class="card-icon">
+                          <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                        </div><h4 _ngcontent-c4="" class="card-title">Listado de poa en trámite</h4>
+                      </div>                                  
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                             </mat-form-field>
+                             <table mat-table [dataSource]="datapoaFiltrado" 
+                             matSort class="table table-striped table-no-bordered table-hover" 
+                             cellspacing="1"
+                             width="100%" 
+                             style="width:100%">
+    
+                          <ng-container matColumnDef="ANIO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año Solicitud</th>
+                              <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="poa_REF">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número de Solicitud </th>
+                              <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                              <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="ESTADO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                              <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="Acciones">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                              <td mat-cell *matCellDef="let row"> 
+                                  <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em">
+                                      <i class="material-icons">visibility</i>
+                                  </button>
+                                   <button mat-raised-button type="button" class="btn btn-success {{row[5]}}" style="padding: 0.5em; margin: 0.5em">
+                                      <i class="material-icons">edit</i>
+                                  </button>
+                              </td>
+                          </ng-container>   
+
+                        <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                        </tr>
+                      </table>
+                      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="tab-pane" id="link11">
+                <div class="card">
+                    <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                        <div _ngcontent-c4="" class="card-icon">
+                          <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                        </div><h4 _ngcontent-c4="" class="card-title">Listado de poa Procesadas</h4>
+                      </div>                                  
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                             </mat-form-field>
+                             <table mat-table [dataSource]="datapoaFiltrado" 
+                             matSort class="table table-striped table-no-bordered table-hover" 
+                             cellspacing="1"
+                             width="100%" 
+                             style="width:100%">
+    
+                          <ng-container matColumnDef="ANIO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año Solicitud</th>
+                              <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="poa_REF">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número de Solicitud </th>
+                              <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                              <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="ESTADO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                              <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="Acciones">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                              <td mat-cell *matCellDef="let row"> 
+                                  <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em">
+                                      <i class="material-icons">visibility</i>
+                                  </button>
+                              </td>
+                          </ng-container>   
+
+                        <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                        </tr>
+                      </table>
+                      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="tab-pane" id="link12">
+                <div class="card">
+                    <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                        <div _ngcontent-c4="" class="card-icon">
+                          <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                        </div><h4 _ngcontent-c4="" class="card-title">Listado de poa Anuladas</h4>
+                      </div>                                  
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                             </mat-form-field>
+                             <table mat-table [dataSource]="datapoaFiltrado" 
+                             matSort class="table table-striped table-no-bordered table-hover" 
+                             cellspacing="1"
+                             width="100%" 
+                             style="width:100%">
+    
+                          <ng-container matColumnDef="ANIO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Año Solicitud</th>
+                              <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="poa_REF">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Número de Solicitud </th>
+                              <td mat-cell *matCellDef="let row"> {{row.NUMERO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                              <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="ESTADO">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                              <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                          </ng-container>
+    
+                          <ng-container matColumnDef="Acciones">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                              <td mat-cell *matCellDef="let row"> 
+                                  <button mat-raised-button type="button" class="btn btn-info {{row[5]}}" style="padding: 0.5em; margin: 0.5em">
+                                      <i class="material-icons">visibility</i>
+                                  </button>
+                              </td>
+                          </ng-container>   
+
+                        <tr mat-header-row *matHeaderRowDef="['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones']"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['ANIO','poa_REF','AUTORIZADOR_NOMBRE', 'ESTADO', 'Acciones'];">
+                        </tr>
+                      </table>
+                      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

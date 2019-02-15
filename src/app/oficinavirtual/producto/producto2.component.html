@@ -1,0 +1,311 @@
+<!-- <div class="main-content">
+  <div class="container-fluid"> 
+      
+<ng-container *ngIf='carga'>
+    <h3>Cargando información...</h3>
+    <mat-progress-bar mode="indeterminate"  [color]="color" ></mat-progress-bar>
+</ng-container>    
+            
+    <div class="tab-pane" [hidden]='carga'>
+      <div class="card">
+          <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+              <div _ngcontent-c4="" class="card-icon">
+                <i _ngcontent-c4="" class="material-icons">list</i>
+              </div><h4 _ngcontent-c4="" class="card-title">Listado de productos</h4>
+            </div>                                
+        <div class="card-body">
+          <div class="table-responsive">
+              <mat-form-field>
+                  <input matInput [(ngModel)]="filtroBusqueda" placeholder="Filtro"matInput (keyup.enter)="getSigesNoMigrados()">
+              </mat-form-field>
+              <button mat-raised-button class="btn btn-success" (click)='getSigesNoMigrados()' >BUSCAR</button>
+              <table mat-table [dataSource]="dataProductoFiltrado" 
+              matSort class="table table-striped table-no-bordered table-hover" 
+              cellspacing="1"
+              width="100%" 
+              style="width:100%">
+
+            <ng-container matColumnDef="RENGLON">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> RENGLON</th>
+                <td mat-cell *matCellDef="let row"> {{row.RENGLON}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ARTICULO">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> ARTICULO </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ARTICULO}}</td>
+            </ng-container>
+            <ng-container matColumnDef="COMBINACION">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> COMBINACION </th>
+                    <td mat-cell *matCellDef="let row"> {{row.COMBINACION}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DESCRIPCION_LARGA">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> DESCRIPCION_LARGA </th>
+                    <td mat-cell *matCellDef="let row"> {{row.DESCRIPCION_LARGA}}</td>
+            </ng-container>
+            <ng-container matColumnDef="PRESENTACION_NOMBRE">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> PRESENTACION </th>
+                    <td mat-cell *matCellDef="let row"> {{row.PRESENTACION_NOMBRE}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> OPCIONES </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button mat-raised-button type="button" class="btn btn-info " style="padding: 0.5em; margin: 0.5em" (click)='seleccion(row)' >
+                            <i class="material-icons">visibility</i>
+                        </button>  
+                    
+                            <button mat-raised-button type="button" class="btn btn-success " style="padding: 0.5em; margin: 0.5em" >
+                                <i class="material-icons">check_circle</i>
+                            </button>  
+                        </td>
+                </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['RENGLON','ARTICULO','COMBINACION','DESCRIPCION_LARGA','PRESENTACION_NOMBRE','Acciones']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['RENGLON','ARTICULO','COMBINACION','DESCRIPCION_LARGA','PRESENTACION_NOMBRE','Acciones'];">
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> -->
+
+<div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+              <div class="page-categories">
+                <h3 class="title text-center">Productos</h3>
+                <br />
+                <ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#link7" role="tablist" (click)="getSigesMigrados()">
+                      <i class="material-icons">find_in_page</i> Productos 
+                      <br>Migrados
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link8" role="tablist" (click)="getF56ePendienteModificar(Codigoempleado)">
+                      <i class="material-icons" >cached</i> Pendientes de
+                      <br> Modificar
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link9" role="tablist"  (click)="getF56ePendienteFirmar(Codigoempleado)">
+                      <i class="material-icons">fingerprint</i> Pendiente
+                      <br>de Firma
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link10" role="tablist" (click)="getF56eEnTramite(Codigoempleado)">
+                      <i class="material-icons">remove_red_eye</i> En trámite
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link11" role="tablist" (click)="getF56eProcesadas(Codigoempleado)">
+                      <i class="material-icons">thumb_up_alt</i> Procesadas
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link12" role="tablist" (click)="getF56eAnuladas(Codigoempleado)">
+                      <i class="material-icons">thumb_down_alt</i> Anuladas
+                    </a>
+                  </li>
+                </ul>
+                <!-- lista existentes -->
+                <div class="tab-content tab-space tab-subcategories">                      
+  
+    <div class="tab-pane" id="link7">                
+        
+          <div class="card">
+              <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                  <div _ngcontent-c4="" class="card-icon">
+                    <i _ngcontent-c4="" class="material-icons">list</i>
+                  </div><h4 _ngcontent-c4="" class="card-title">Listado de productos migrados</h4>
+                </div>                                
+            <div class="card-body">
+              <div class="table-responsive">
+                  <mat-form-field>
+                      <input matInput placeholder="Filtro"matInput >
+                  </mat-form-field>                  
+                  <table mat-table [dataSource]="dataProductoFiltrado" 
+                  matSort class="table table-striped table-no-bordered table-hover" 
+                  cellspacing="1"
+                  width="100%" 
+                  style="width:100%">
+
+                  <ng-container matColumnDef="COMPRODUCTO">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> PRODUCTO</th>
+                        <td mat-cell *matCellDef="let row"> {{row.COMPRODUCTO}}  </td>
+                    </ng-container>
+                  <ng-container matColumnDef="RENGLON">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning">RENGLON</th>
+                        <td mat-cell *matCellDef="let row"> {{row.RENGLON}} </td>
+                    </ng-container>
+           
+                        
+  
+                <ng-container matColumnDef="COMNOMBRE_UNIDAD_MEDIDA">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning">UNIDAD MEDIDA</th>
+                        <td mat-cell *matCellDef="let row"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}  </td>
+                    </ng-container>
+                    <ng-container matColumnDef="COMDESCRIPCION_PRODUCTO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning">DESCRIPCION PRODUCTO</th>
+                            <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}}  </td>
+                        </ng-container>
+                        <ng-container matColumnDef="PRECIO_ESTIMADO">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning">PRECIO ESTIMADO</th>
+                                <td mat-cell *matCellDef="let row"> {{row.PRECIO_ESTIMADO}}  </td>
+                            </ng-container>
+                       
+  
+  
+              <tr mat-header-row *matHeaderRowDef="['COMPRODUCTO','RENGLON','COMNOMBRE_UNIDAD_MEDIDA','COMDESCRIPCION_PRODUCTO','PRECIO_ESTIMADO']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['COMPRODUCTO','RENGLON','COMNOMBRE_UNIDAD_MEDIDA','COMDESCRIPCION_PRODUCTO','PRECIO_ESTIMADO'];">
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              </div>
+          </div>
+        </div>
+      
+    </div>
+            
+      <!-- lista sin precio -->
+      <div class="tab-pane" id="link8">
+            <div class="card">
+                <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                    <div _ngcontent-c4="" class="card-icon">
+                      <i _ngcontent-c4="" class="material-icons">list_alt</i>
+                    </div><h4 _ngcontent-c4="" class="card-title">Listado de F56e</h4>
+                  </div>                                
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                         </mat-form-field>
+                        <table mat-table [dataSource]="dataF56ePendienteModificar" 
+                               matSort class="table table-striped table-no-bordered table-hover" 
+                               cellspacing="0"
+                               width="100%" 
+                               style="width:100%">
+    
+                          <ng-container matColumnDef="FECHA_SOLICITUD">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Fecha </th>
+                                <td mat-cell *matCellDef="let row"> {{row.FECHA_SOLICITUD}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="F56E_REF">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> F56e </th>
+                                <td mat-cell *matCellDef="let row"> {{row.F56E_REF}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="DECONFORMIDAD_NOMBRE">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> De Conformidad </th>
+                                <td mat-cell *matCellDef="let row"> {{row.DECONFORMIDAD_NOMBRE}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="AUTORIZADOR_NOMBRE">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Autorizador </th>
+                                <td mat-cell *matCellDef="let row"> {{row.AUTORIZADOR_NOMBRE}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="UNIDAD">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Unidad </th>
+                                <td mat-cell *matCellDef="let row"> {{row.UNIDAD}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="SEDE">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Sede </th>
+                                <td mat-cell *matCellDef="let row"> {{row.SEDE}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="ESTADO">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Estado </th>
+                                <td mat-cell *matCellDef="let row"> {{row.ESTADO}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="JUSTIFICACION">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Justificación </th>
+                                <td mat-cell *matCellDef="let row"> {{row.JUSTIFICACION}}</td>
+                            </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="['FECHA_SOLICITUD','F56E_REF','DECONFORMIDAD_NOMBRE','AUTORIZADOR_NOMBRE','UNIDAD','SEDE', 'ESTADO', 'JUSTIFICACION']"></tr>
+                          <tr mat-row *matRowDef="let row; columns: ['FECHA_SOLICITUD','F56E_REF','DECONFORMIDAD_NOMBRE','AUTORIZADOR_NOMBRE','UNIDAD','SEDE', 'ESTADO', 'JUSTIFICACION'];">
+                          </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <!-- fin lista sin precio -->
+          <div class="tab-pane" id="link9">                
+                <div class="tab-pane" [hidden]='carga'>
+                  <div class="card">
+                      <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                          <div _ngcontent-c4="" class="card-icon">
+                            <i _ngcontent-c4="" class="material-icons">list</i>
+                          </div><h4 _ngcontent-c4="" class="card-title">Listado de productos</h4>
+                        </div>                                
+                    <div class="card-body">
+                      <div class="table-responsive">
+                          <mat-form-field>
+                              <input matInput [(ngModel)]="filtroBusqueda" placeholder="Filtro"matInput (keyup.enter)="getSigesNoMigrados()">
+                          </mat-form-field>                  
+                          <table mat-table [dataSource]="dataProductoFiltrado" 
+                          matSort class="table table-striped table-no-bordered table-hover" 
+                          cellspacing="1"
+                          width="100%" 
+                          style="width:100%">
+            
+                        <ng-container matColumnDef="RENGLON">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> RENGLON</th>
+                            <td mat-cell *matCellDef="let row"> {{row.RENGLON}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ARTICULO">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> ARTICULO </th>
+                                <td mat-cell *matCellDef="let row"> {{row.ARTICULO}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="COMBINACION">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> COMBINACION </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMBINACION}}</td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="DESCRIPCION_LARGA">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> DESCRIPCION_LARGA </th>
+                                <td mat-cell *matCellDef="let row"> {{row.DESCRIPCION_LARGA}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="PRESENTACION_NOMBRE">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> PRESENTACION </th>
+                                <td mat-cell *matCellDef="let row"> {{row.PRESENTACION_NOMBRE}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Acciones">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> OPCIONES </th>
+                                <td mat-cell *matCellDef="let row"> 
+                                    <button mat-raised-button type="button" class="btn btn-info " style="padding: 0.5em; margin: 0.5em" (click)='seleccion(row)' >
+                                        <i class="material-icons">visibility</i>
+                                    </button>  
+                                
+                                        <button mat-raised-button type="button" class="btn btn-success " style="padding: 0.5em; margin: 0.5em" >
+                                            <i class="material-icons">check_circle</i>
+                                        </button>  
+                                    </td>
+                            </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="['RENGLON','ARTICULO','COMBINACION','DESCRIPCION_LARGA','PRESENTACION_NOMBRE','Acciones']"></tr>
+                      <tr mat-row *matRowDef="let row; columns: ['RENGLON','ARTICULO','COMBINACION','DESCRIPCION_LARGA','PRESENTACION_NOMBRE','Acciones'];">
+                      </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                <!--  fin subcategorias -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

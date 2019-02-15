@@ -1,0 +1,212 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header card-header-default card-header-text">
+            <div class="card-text">
+              <h4 class="card-title">Datos Generales de la Solicitud Número: <strong> {{JsonVerPoa.NUMERO}} </strong></h4>
+            </div>
+          </div>
+          <div class="card-body ">
+            <form method="get" action="/" class="form-horizontal">
+              <div class="row">
+                <div class="col-sm-7">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Completo Solicitante" value={{JsonVerPoa.SOLICITANTE_NOMBRE}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Puesto Solicitante" value={{JsonVerPoa.SOLICITANTE_PUESTO}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Fecha" value={{JsonVerPoa.FECHA_CREACION}} disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Dependencia Funcional del Solicitante" value={{JsonVerPoa.SOLICITANTE_DEPENDENCIA}}
+                      disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Personas" value={{JsonVerPoa.PERSONAS_DEPENDENCIA}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Año" value="{{JsonVerPoa.ANIO}}" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-7">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Completo Autorizador" value={{JsonVerPoa.AUTORIZADOR_NOMBRE}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Puesto Autorizador" value={{JsonVerPoa.AUTORIZADOR_PUESTO}} disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Usuario" value={{JsonVerPoa.AUTORIZADOR}} disabled>
+                  </mat-form-field>
+                </div>
+              </div>    
+              <div class="row">
+                <div class="col-sm-10">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="Nombre Dependencia del Autorizador" value={{JsonVerPoa.AUTORIZADOR_DEPENDENCIA}}
+                      disabled>
+                  </mat-form-field>
+                </div>
+              </div>                        
+            </form>
+          </div>
+          <div>
+<!-- INICIO  -->
+
+<!--   <div class="col-lg-10 ml-auto text-right">
+      <button class="btn btn-just-icon btn-danger mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "PDF")'>
+        <span class="mat-button-wrapper">
+          <i class="fa fa-file-pdf-o"></i>
+        </span>
+        <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+        <div class="mat-button-focus-overlay"></div>
+      </button>    
+      <button class="btn btn-just-icon btn-success mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "EXCEL")'>
+          <span class="mat-button-wrapper">
+            <i class="fa fa-file-excel-o"></i>
+          </span>
+          <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+          <div class="mat-button-focus-overlay"></div>
+        </button>    
+        <button class="btn btn-just-icon btn-primary mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "WORD")'>
+            <span class="mat-button-wrapper">
+              <i class="fa fa-file-word-o"></i>
+            </span>
+            <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+            <div class="mat-button-focus-overlay"></div>
+          </button>      
+  </div> -->
+<!-- FIN -->
+
+
+
+            <!-- INICIO DE DETALLE DEL PEDIDO-->
+            <div class="card">
+                <div class="card-header card-header-default card-header-text">
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-text">
+                            <h4 class="card-title">Detalle de la Solicitud ( {{vContadorDetalle}} )</h4>
+                          </div>
+                    </div>
+                    <div class="col-md-6 ml-auto text-right">
+                        <button class="btn btn-just-icon btn-danger mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "PDF")'>
+                            <span class="mat-button-wrapper">
+                              <i class="fa fa-file-pdf-o"></i>
+                            </span>
+                            <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                            <div class="mat-button-focus-overlay"></div>
+                          </button>    
+                          <button class="btn btn-just-icon btn-success mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "EXCEL")'>
+                              <span class="mat-button-wrapper">
+                                <i class="fa fa-file-excel-o"></i>
+                              </span>
+                              <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                              <div class="mat-button-focus-overlay"></div>
+                            </button>    
+                            <button class="btn btn-just-icon btn-primary mat-raised-button btn-lg" mat-raised-button="" (click)='grabarParametros(JsonVerPoa.POAID, "WORD")'>
+                                <span class="mat-button-wrapper">
+                                  <i class="fa fa-file-word-o"></i>
+                                </span>
+                                <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                                <div class="mat-button-focus-overlay"></div>
+                              </button>                            
+                      </div>                    
+                  </div>
+            </div>                    
+                <div class="card-body">
+                    <div class="table-responsive">
+<!--                         <mat-form-field>
+                            <input matInput (keyup)="filtroDetalle($event.target.value)" placeholder="Filtro">
+                         </mat-form-field> -->
+                        <table mat-table [dataSource]="listadoPedido"  #sBSort="matSort"  
+                               matSort class="table table-striped table-no-bordered table-hover" 
+                               cellspacing="0"
+                               width="100%" 
+                               style="width:100%">
+    
+                          <ng-container matColumnDef="codigo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"><strong>Código</strong>  </th>
+                                <td mat-cell *matCellDef="let row"> {{row.CODIGO}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="descripcion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong>Descripción Producto</strong> </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="renglon">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong> Renglón </strong></th>
+                                <td mat-cell *matCellDef="let row"  class="text-center"> {{row.COMGRUPO}}{{row.COMSUB_GRUPO}}{{row.COMRENGLON}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="medida">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"><strong> Unidad Medida</strong> </th>
+                                <td mat-cell *matCellDef="let row"  class="text-center"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadI">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong>Cuatrimestre I</strong> </th>
+                                <td mat-cell *matCellDef="let row"  class="text-center">{{row.CANTIDAD_I}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadII">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong>Cuatrimestre II</strong> </th>
+                                <td mat-cell *matCellDef="let row" class="text-center"> {{row.CANTIDAD_II}}</td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="cantidadIII">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong>Cuatrimestre III</strong> </th>
+                                <td mat-cell *matCellDef="let row" class="text-center"> {{row.CANTIDAD_III}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#E7D7BD"> <strong>Total</strong> </th>
+                                <td style="font-weight: bold;" mat-cell *matCellDef="let row" class="text-center"> {{row.TOTAL}}</td>
+                              </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="['codigo','descripcion','medida','cantidadI','cantidadII','cantidadIII', 'total']"></tr>
+                          <tr mat-row *matRowDef="let row; columns: ['codigo','descripcion','medida','cantidadI','cantidadII','cantidadIII', 'total'];">
+                          </tr>
+                        </table>
+                        <mat-paginator #sBSort1="matPaginator" [pageSize]="10"  [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
+              <button (click)='grabarParametros(JsonVerPoa.POAID, "PDF")'></button>
+            </div>
+<!-- FIN -->
+
+<!-- INICIO DATATABLE.NET -->
+
+<!-- FIN DATATABLE.NET -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

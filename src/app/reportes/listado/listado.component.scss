@@ -1,0 +1,41 @@
+// .alt {
+//     .mat-form-field {
+//       width: auto !important;
+//       height: 100px;
+//     }
+  
+//     .mat-select-value {
+//       max-width: 100%;
+//       width: auto;
+//       max-height: 100%;
+//       height: auto;
+//     }  
+//   }
+
+//   .class1 .mat-select-placeholder {
+//   color:burlywood !important;
+// }
+
+ 
+
+// .mat-select-panel.virtual-scroll {
+//   max-height: 100% !important;
+//   overflow: inherit !important;
+// }
+// .mat-select-panel .cdk-virtual-scroll-viewport {
+//  max-height: 240px !important;
+// }
+
+// .mat-select-panel .cdk-virtual-scroll-content-wrapper {
+//   position: inherit !important;  
+//   top: inherit !important;  
+//   left: 0; 
+// }
+
+
+
+.mat-select-placeholder {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

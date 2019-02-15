@@ -1,0 +1,69 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon">
+                <div _ngcontent-c4="" class="card-icon">
+                    <i _ngcontent-c4="" class="material-icons">list</i>
+                </div>
+                <h4 _ngcontent-c4="" class="card-title">----</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filtroBusqueda" placeholder="Filtro"matInput (keyup.enter)="getSigesNoMigrados()">
+                    </mat-form-field>                  
+                    <table mat-table [dataSource]="dataProductoFiltrado" 
+                    matSort class="table table-striped table-no-bordered table-hover" 
+                    cellspacing="1"
+                    width="100%" 
+                    style="width:100%">
+          
+                  <ng-container matColumnDef="ANIO">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> AÑO</th>
+                      <td mat-cell *matCellDef="let row"> {{row.ANIO}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="CODIGO_SIGES">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> CODIGO SIGES </th>
+                          <td mat-cell *matCellDef="let row"> {{row.CODIGO_SIGES}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="COMDESCRIPCION_PRODUCTO">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> PRODUCTO </th>
+                          <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}}</td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="COMNOMBRE_UNIDAD_MEDIDA">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning "> UNIDAD_MEDIDA </th>
+                          <td mat-cell *matCellDef="let row" class="text-center"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="PRECIO_ESTIMADO">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> PRECIO ESTIMADO </th>
+                          <td mat-cell *matCellDef="let row"> {{row.PRECIO_ESTIMADO}}</td>
+                  </ng-container>
+                   <ng-container matColumnDef="Opciones">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> OPCIONES </th>
+                          <td mat-cell *matCellDef="let row"> 
+                              <button mat-raised-button type="button" class="btn btn-info " style="padding: 0.5em; margin: 0.5em" (click)='editProducto(row)' >
+                                  <i class="material-icons" >add_circle_outline</i>
+                              </button>  
+                        
+                              </td>
+                      </ng-container> 
+                <tr mat-header-row *matHeaderRowDef="['ANIO','COMDESCRIPCION_PRODUCTO','COMNOMBRE_UNIDAD_MEDIDA','PRECIO_ESTIMADO','CODIGO_SIGES','Opciones']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['ANIO','COMDESCRIPCION_PRODUCTO','COMNOMBRE_UNIDAD_MEDIDA','PRECIO_ESTIMADO','CODIGO_SIGES','Opciones'];">
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <button mat-raised-button type="button" class="btn btn-info btn-md" style="padding: 0.5em; margin: 0.5em"
+            (click)='volver()'>
+            <i class="material-icons">restore</i> Regresar
+        </button>
+
+    </div>

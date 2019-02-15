@@ -1,0 +1,265 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header card-header-warning card-header-text">
+            <div class="card-text">
+              <h4 class="card-title">Datos Generales de la F56e</h4>
+            </div>
+          </div>
+          <div class="card-body ">
+            <form method="get" action="/" class="form-horizontal">
+              <div class="row">
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <input matInput type="text" placeholder="Nombre Completo Solicitante" value={{dataAdicional.NombreEmpleado}} disabled>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-form-field class="example-full-width">
+                      <input matInput type="text" placeholder="Puesto Solicitante" value={{dataAdicional.PuestoEmpleado}} disabled>
+                    </mat-form-field>
+                  </div>              
+                  <div class="col-sm-1">
+                      <mat-form-field class="example-full-width">
+                        <input matInput type="text" placeholder="Usuario" value={{dataAdicional.UsuarioEmpleado}} disabled>
+                      </mat-form-field>
+                    </div>                                
+              </div>    
+              <div class="row">
+                  <div class="col-sm-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput type="text" placeholder="Nombre Dependencia Funcional del Solicitante" value={{dataAdicional.DependenciaSolicitante}} disabled>
+                    </mat-form-field>
+                  </div>
+              </div>  
+              <div class="row">
+                <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select placeholder="Sede" name="dataSede" [(ngModel)]="dataF56e.SEDE" [ngModelOptions]="{standalone: true}">
+                              <mat-option *ngFor="let dataSede of dataSedes" [value]="dataSede.CODIGO">
+                                {{ dataSede.DESCRIPCION }}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>  
+                <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select placeholder="Unidad" name="dataUnidad" [(ngModel)]="dataF56e.UNIDAD" [ngModelOptions]="{standalone: true}">
+                              <mat-option *ngFor="let dataUnidad of dataUnidades" [value]="dataUnidad.CODIGO">
+                                {{ dataUnidad.DESCRIPCION }}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>                                  
+              </div>        
+            </form>
+          </div>
+      <div *ngIf="dataF56e.SEDE && dataF56e.UNIDAD">
+          <div class="card-header card-header-default card-header-text" *ngIf="vContadorDetalle<15">
+              <div class="card-text">
+                <h4 class="card-title">Búsqueda de Productos o Servicios:  {{vContadorDetalle}}</h4>
+              </div>
+          </div>
+            <div class="card-body "  *ngIf="vContadorDetalle<15">
+                <form method="get" action="/" class="form-horizontal">
+                  <div class="row" style="background-color:whitesmoke">
+                      <div class="col-sm-4">
+                          <mat-form-field>
+                              <input matInput [(ngModel)]="vBuscaPoducto" [ngModelOptions]="{standalone: true}" placeholder="Búsqueda de Producto">
+                           </mat-form-field>
+                      </div>
+                      <div class="col-sm-1">
+                          <button mat-raised-button class="btn btn-just-icon btn-default" (click)="getProductos(vBuscaPoducto, 'T')">
+                              <i class="fa fa-search"></i>
+                            </button>
+                      </div>              
+                      <div class="col-sm-5">
+                          <mat-form-field>
+                              <!-- <mat-select placeholder="Producto" name="dataProducto" (selectionChange)="seleccionadoProducto($event)"> -->
+                              <mat-select placeholder="Producto" name="dataProducto" [(ngModel)]="productoSeleccionado" [ngModelOptions]="{standalone: true}" required >                                
+                                <mat-option *ngFor="let dataProducto of dataProductos" [value]="dataProducto" >
+                                  {{ dataProducto.COMDESCRIPCION_PRODUCTO }}
+                                </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                        </div>                                
+                        <div class="col-sm-1">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="productoSeleccionado.CANTIDAD" [ngModelOptions]="{standalone: true}" required placeholder="Cantidad">
+                             </mat-form-field>
+                          </div>   
+                        <div class="col-sm-1">
+                            <button mat-raised-button class="btn btn-just-icon btn-success" (click)="agregaProducto()">
+                                <i class="fa fa-plus-square"></i>
+                              </button>
+                          </div>                                              
+                  </div>    
+                </form>
+              </div>
+              <div class="card-header card-header-warning card-header-text">
+                  <div class="card-text">
+                    <h4 class="card-title">Listado de Productos o Servicios</h4>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <table mat-table [dataSource]="listadoPedido" 
+                               matSort class="table table-striped table-no-bordered table-hover" 
+                               cellspacing="0"
+                               padding="0"
+                               margin="0"
+                               width="100%" 
+                               style="width:100%">
+                            <ng-container matColumnDef="Codigo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Codigo </th>
+                                <td mat-cell *matCellDef="let row"> {{row.CODIGO}} </td>
+                            </ng-container>    
+                               <ng-container matColumnDef="Descripcion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Descripción del Producto </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMDESCRIPCION_PRODUCTO}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="Renglon">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Renglón </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMGRUPO}}{{row.COMSUB_GRUPO}}{{row.COMRENGLON}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="Unidad">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Unidad de Medida </th>
+                                <td mat-cell *matCellDef="let row"> {{row.COMNOMBRE_UNIDAD_MEDIDA}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="Cantidad">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Cantidad </th>
+                              <td mat-cell *matCellDef="let row"> {{row.CANTIDAD}}</td>
+                          </ng-container>
+
+                            <ng-container matColumnDef="Acciones">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                                 <td mat-cell *matCellDef="let row"> 
+                                   <button mat-raised-button class="btn btn-just-icon btn-link btn-danger mat-raised-button" (click)="removeSelectedRows()">
+                                    <i class="fa fa-minus-square-o"></i>
+                                  </button>                                
+                                 </td> 
+                            </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="['Codigo','Descripcion','Renglon','Unidad','Cantidad', 'Acciones']" style="background-color:whitesmoke"></tr>
+                          <tr mat-row *matRowDef="let row; columns: ['Codigo','Descripcion','Renglon','Unidad','Cantidad', 'Acciones'];">
+                          </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[15]"></mat-paginator>
+                    </div>
+                  </div>
+              <div class="card-header card-header-warning card-header-text" *ngIf="vContadorDetalle>0">
+                  <div class="card-text">
+                    <h4 class="card-title">Justificación y Observaciones Adicionales de la F56e</h4>
+                  </div>
+              </div>                  
+              <div class="card-body " *ngIf="vContadorDetalle>0">
+                  <form method="get" action="/" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-6">
+                          <mat-form-field class="example-full-width">
+                              <textarea matInput placeholder="Justificación" [(ngModel)]="dataF56e.JUSTIFICACION" [ngModelOptions]="{standalone: true}"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="Observaciones Adicionales"  [(ngModel)]="dataF56e.OBSERVACIONES_ADICIONALES" [ngModelOptions]="{standalone: true}"></textarea>
+                            </mat-form-field>                    
+                        </div>              
+                    </div>        
+                  </form>
+                </div>
+<!--                 <div _ngcontent-c4="" class="card-header card-header-warning card-header-icon"  *ngIf="vContadorDetalle>0">
+                    <div class="card-text">
+                        <i _ngcontent-c4="" class="material-icons">attach_file</i>
+                      </div>
+                 </div>  
+                 <div *ngIf="vContadorDetalle>0">
+                    <span class="btn btn-default btn-round btn-file">
+                        <span class="fileinput-new">Select image</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" name="..." />
+                    </span>
+                </div>        -->          
+
+                <div class="card-header card-header-warning card-header-text" *ngIf="vContadorDetalle>0">
+                    <div class="card-text">
+                        <i _ngcontent-c4="" class="material-icons">attach_file</i>
+                    </div>
+
+
+
+                    <input type="file" (change)="detectFiles($event)">
+                    <div class="output">Seleccionado: {{ fileName }} </div>                    
+
+                    <button (click)="adjuntarArchivo()">+</button>
+                </div>
+                   <div class="card-body"  *ngIf="vContadorDetalle>0">
+                      <div class="table-responsive">
+  
+                          <table mat-table [dataSource]="listadoAdjuntos" 
+                                 matSort class="table table-striped table-no-bordered table-hover" 
+                                 cellspacing="0"
+                                 padding="0"
+                                 margin="0"
+                                 width="100%" 
+                                 style="width:100%">
+                              <ng-container matColumnDef="Descripcion">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Descripción del Archivo </th>
+                                  <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="Acciones">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-warning"> Acciones </th>
+                                   <td mat-cell *matCellDef="let row"> 
+                                     <button mat-raised-button class="btn btn-just-icon btn-link btn-danger mat-raised-button" (click)="removeSelectedRows()">
+                                      <i class="fa fa-minus-square-o"></i>
+                                    </button>                                
+                                   </td> 
+                              </ng-container>
+  
+                            <tr mat-header-row *matHeaderRowDef="['Descripcion','Acciones']" style="background-color:whitesmoke"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ['Descripcion', 'Acciones'];">
+                            </tr>
+                          </table>
+                          <mat-paginator [pageSizeOptions]="[5,10,15]"></mat-paginator>
+                      </div>
+                    </div>
+                <div class="card-header card-header-warning card-header-text" *ngIf="vContadorDetalle>0">
+                    <div class="card-text">
+                      <h4 class="card-title">Firmantes de la F56e</h4>
+                    </div>
+                </div>                  
+                <div class="card-body " *ngIf="vContadorDetalle>0">
+                    <form method="get" action="/" class="form-horizontal">
+                      <div class="row">
+                          <div class="col-md-6" *ngIf="dataConformidades.length>0">
+                                  <mat-form-field>
+                                      <mat-select placeholder="De Conformidad" name="dataConformidad" [(ngModel)]="dataF56e.DECONFORMIDAD" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let dataConformidad of dataConformidades" [value]="dataConformidad.EMPLEADO">
+                                          {{ dataConformidad.NOMBRE_COMPLETO }}
+                                        </mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                          </div>  
+                          <div class="col-md-6" *ngIf="dataAutorizadores.length>0">
+                                  <mat-form-field>
+                                      <mat-select placeholder="Autorizador" name="dataAutorizador" [(ngModel)]="dataF56e.AUTORIZADOR" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let dataAutorizador of dataAutorizadores" [value]="dataAutorizador.EMPLEADO">
+                                          {{ dataAutorizador.NOMBRE_COMPLETO }}
+                                        </mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                          </div>                                  
+                        </div>        
+                    </form>
+                  </div>         
+        </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
